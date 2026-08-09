@@ -205,9 +205,12 @@ export function LandingExperience() {
         工信部要求：使用中国大陆节点的网站需在首页底部展示 ICP 备案号，
         并链接到 beian.miit.gov.cn。会被抽查，不能省。
       */}
-      <footer className="flex w-full max-w-[576px] items-center justify-center bg-black px-6 pb-10 pt-6">
+      <footer className="flex w-full max-w-[576px] flex-wrap items-center justify-center gap-x-2 gap-y-1 bg-black px-6 pb-10 pt-6 text-[11px] font-light tracking-[0.12em] text-[#b8b1a6]/60">
+        {/* 主体名称与备案登记的服务名称保持一致，避免抽查时被判定内容与备案不符 */}
+        <span>数字时代的手艺人</span>
+        <span aria-hidden="true">·</span>
         <a
-          className="text-[11px] font-light tracking-[0.12em] text-[#b8b1a6]/60 underline-offset-4 transition-colors hover:text-[#b8b1a6] hover:underline"
+          className="underline-offset-4 transition-colors hover:text-[#b8b1a6] hover:underline"
           href="https://beian.miit.gov.cn"
           target="_blank"
           rel="noreferrer"

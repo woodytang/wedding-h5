@@ -201,6 +201,21 @@ export function LandingExperience() {
         />
       </section>
 
+      {/*
+        工信部要求：使用中国大陆节点的网站需在首页底部展示 ICP 备案号，
+        并链接到 beian.miit.gov.cn。会被抽查，不能省。
+      */}
+      <footer className="flex w-full max-w-[576px] items-center justify-center bg-black px-6 pb-10 pt-6">
+        <a
+          className="text-[11px] font-light tracking-[0.12em] text-[#b8b1a6]/60 underline-offset-4 transition-colors hover:text-[#b8b1a6] hover:underline"
+          href="https://beian.miit.gov.cn"
+          target="_blank"
+          rel="noreferrer"
+        >
+          沪ICP备2024087836号-1
+        </a>
+      </footer>
+
       <div className="demo-first-preload" aria-hidden="true">
         <img
           src={demoSlides[0].src}

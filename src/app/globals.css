@@ -1,26 +1,208 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  background: #000;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  overflow-x: clip;
+  min-height: 100%;
+  margin: 0;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #000;
+  color: #f8f4eb;
+}
+
+button {
+  font: inherit;
+}
+
+.demo-first-preload,
+.demo-adjacent-preload {
+  position: fixed;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.demo-page-tab {
+  position: absolute;
+  right: 0;
+  bottom: 11.1%;
+  z-index: 1;
+  display: grid;
+  width: 56px;
+  min-height: 144px;
+  padding: 13px 8px 11px;
+  border: 1px solid rgb(255 252 240 / 62%);
+  border-right: 0;
+  background: rgb(20 31 25 / 90%);
+  color: #fffdf5;
+  line-height: 1;
+  text-align: left;
+  box-shadow: -10px 8px 22px rgb(0 0 0 / 16%);
+  animation: tab-enter 700ms cubic-bezier(.2, .8, .2, 1) 250ms both, tab-pulse 3.5s ease-in-out 1.1s infinite;
+}
+
+.demo-page-tab span {
+  font-size: 10px;
+  letter-spacing: .08em;
+}
+
+.demo-page-tab strong {
+  align-self: end;
+  font-size: 13px;
+  letter-spacing: .08em;
+}
+
+.demo-page-tab i {
+  font-size: 9px;
+  font-style: normal;
+  letter-spacing: .08em;
+  opacity: .72;
+}
+
+.demo-page-tab b {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  font-size: 21px;
+  font-weight: 400;
+}
+
+.demo-page-tab:focus-visible,
+.demo-close:focus-visible,
+.demo-nav:focus-visible {
+  outline: 2px solid #fffdf5;
+  outline-offset: 3px;
+}
+
+.demo-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: rgb(13 15 13 / 96%);
+  animation: overlay-in 260ms ease-out both;
+}
+
+.demo-stage {
+  position: relative;
+  width: min(100%, 576px);
+  height: 100svh;
+  touch-action: pan-y;
+}
+
+.demo-stage img {
+  object-fit: contain;
+  animation: slide-in 360ms cubic-bezier(.2, .8, .2, 1) both;
+}
+
+.demo-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 46px;
+  height: 1px;
+  overflow: hidden;
+  background: rgb(255 253 245 / 24%);
+  transform: translate(-50%, -50%);
+}
+
+.demo-loading::after {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 55%;
+  background: #fffdf5;
+  content: '';
+  animation: loading-line 900ms ease-in-out infinite;
+}
+
+.demo-counter {
+  position: absolute;
+  top: max(18px, env(safe-area-inset-top));
+  left: 18px;
+  margin: 0;
+  color: #fffdf5;
+  font-size: 12px;
+  letter-spacing: .1em;
+  text-shadow: 0 1px 8px rgb(0 0 0 / 45%);
+}
+
+.demo-close,
+.demo-nav {
+  position: fixed;
+  z-index: 11;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  color: #fffdf5;
+  text-shadow: 0 1px 8px rgb(0 0 0 / 45%);
+}
+
+.demo-close {
+  top: max(10px, env(safe-area-inset-top));
+  right: max(14px, calc((100vw - 576px) / 2 + 14px));
+  width: 42px;
+  height: 42px;
+  font-size: 32px;
+  font-weight: 200;
+}
+
+.demo-nav {
+  top: 50%;
+  width: 48px;
+  height: 72px;
+  transform: translateY(-50%);
+  font-size: 48px;
+  font-weight: 200;
+}
+
+.demo-nav-previous {
+  left: max(2px, calc((100vw - 576px) / 2));
+}
+
+.demo-nav-next {
+  right: max(2px, calc((100vw - 576px) / 2));
+}
+
+@keyframes tab-enter {
+  from { opacity: 0; transform: translateX(28px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes tab-pulse {
+  0%, 100% { box-shadow: -10px 8px 22px rgb(0 0 0 / 16%); }
+  50% { box-shadow: -12px 8px 26px rgb(248 244 235 / 28%); }
+}
+
+@keyframes overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-in {
+  from { opacity: 0; transform: scale(1.025); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes loading-line {
+  from { transform: translateX(-110%); }
+  to { transform: translateX(190%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 1ms !important; }
 }

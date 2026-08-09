@@ -1,15 +1,7 @@
 'use client'
 
-import Image from 'next/image'
 import { useCallback, useEffect, useState } from 'react'
-import dailyHeadshots from '@/assets/daily-headshots.webp'
-import landCover from '@/assets/landing-cover.webp'
-import landImage3 from '@/assets/land-image-3.webp'
-import landImage5 from '@/assets/land-image-5.webp'
-import landImage6 from '@/assets/land-image-6.webp'
-import landImage7 from '@/assets/land-image-7.webp'
-import landImage8 from '@/assets/land-image-8.webp'
-import section2BeautifulChapter from '@/assets/land-image-4.webp'
+import { Pic } from '@/components/Pic'
 import { demoSlides } from '@/data/demo-slides'
 
 export function LandingExperience() {
@@ -52,14 +44,11 @@ export function LandingExperience() {
   return (
     <main className="flex min-h-svh w-full flex-col items-center justify-center overflow-x-clip bg-black">
       <article className="relative w-full max-w-[576px] leading-none">
-        <Image
+        <Pic
           className="block h-auto w-full"
-          src={landCover}
+          name="landing-cover"
           alt="岚蝶AI影像婚礼高奢定制封面：浪漫没有标准答案。我们的尤其没有。"
-          preload
-          placeholder="blur"
-          quality={85}
-          sizes="(max-width: 600px) 100vw, 576px"
+          priority
         />
         <button
           className="demo-page-tab"
@@ -79,12 +68,10 @@ export function LandingExperience() {
         <p className="m-0 mb-1 text-[18px] font-medium tracking-[0.08em]">您唯一需要提供的：</p>
         <p className="m-0 mb-7 text-[11px] tracking-[0.08em] opacity-60">日常清晰生活照即可</p>
         <div className="relative inline-block origin-center bg-[#f5f1e8] p-2 pb-10 shadow-[0_14px_28px_-6px_rgba(0,0,0,0.6),0_6px_12px_-4px_rgba(0,0,0,0.4)] ring-1 ring-black/5 rotate-[-1.8deg] before:pointer-events-none before:absolute before:inset-0 before:bg-[radial-gradient(120%_80%_at_30%_0%,rgba(255,255,255,0.55),transparent_55%)] before:mix-blend-soft-light">
-          <Image
+          <Pic
             className="block h-auto w-[55vw] max-w-[260px] ring-1 ring-black/15"
-            src={dailyHeadshots}
+            name="daily-headshots"
             alt="日常照片头像示例"
-            placeholder="blur"
-            quality={85}
             sizes="55vw"
           />
         </div>
@@ -92,13 +79,10 @@ export function LandingExperience() {
       </div>
       <section className="relative w-full max-w-[576px] bg-black leading-none" id="section2" aria-label="婚礼高奢定制风格展示">
         <div className="flex w-full justify-center bg-black px-6">
-          <Image
+          <Pic
             className="block h-auto w-full"
-            src={landImage3}
+            name="land-image-3"
             alt=""
-            placeholder="blur"
-            quality={85}
-            sizes="(max-width: 600px) 100vw, 576px"
           />
         </div>
       </section>
@@ -154,13 +138,10 @@ export function LandingExperience() {
       </div>
 
       <section className="relative w-full max-w-[576px] px-6 leading-none" id="section3" aria-label="日常照片定制婚纱照风格展示">
-        <Image
+        <Pic
           className="block h-auto w-full"
-          src={section2BeautifulChapter}
+          name="land-image-4"
           alt="岚蝶AI影像日常照片定制：西式经典、日韩时尚、中式典雅与港风怀旧婚纱照"
-          placeholder="blur"
-          quality={85}
-          sizes="(max-width: 600px) 100vw, 576px"
         />
       </section>
 
@@ -171,13 +152,10 @@ export function LandingExperience() {
       </div>
 
       <section className="relative w-full max-w-[576px] px-6 leading-none" aria-label="岚蝶AI影像婚礼影像展示">
-        <Image
+        <Pic
           className="block h-auto w-full"
-          src={landImage5}
+          name="land-image-5"
           alt="岚蝶AI影像婚礼影像展示"
-          placeholder="blur"
-          quality={85}
-          sizes="(max-width: 600px) 100vw, 576px"
         />
       </section>
 
@@ -188,13 +166,10 @@ export function LandingExperience() {
       </div>
 
       <section className="relative w-full max-w-[576px] px-6 leading-none" aria-label="岚蝶AI影像草地婚礼影像展示">
-        <Image
+        <Pic
           className="block h-auto w-full"
-          src={landImage6}
+          name="land-image-6"
           alt="岚蝶AI影像草地婚礼影像展示"
-          placeholder="blur"
-          quality={85}
-          sizes="(max-width: 600px) 100vw, 576px"
         />
       </section>
 
@@ -205,13 +180,10 @@ export function LandingExperience() {
       </div>
 
       <section className="relative w-full max-w-[576px] px-6 leading-none" aria-label="岚蝶AI影像后续婚礼影像展示">
-        <Image
+        <Pic
           className="block h-auto w-full"
-          src={landImage7}
+          name="land-image-7"
           alt="岚蝶AI影像后续婚礼影像展示"
-          placeholder="blur"
-          quality={85}
-          sizes="(max-width: 600px) 100vw, 576px"
         />
       </section>
 
@@ -222,25 +194,21 @@ export function LandingExperience() {
       </div>
 
       <section className="relative w-full max-w-[576px] px-6 leading-none" aria-label="岚蝶AI影像草地婚礼影像展示">
-        <Image
+        <Pic
           className="block h-auto w-full"
-          src={landImage8}
+          name="land-image-8"
           alt="岚蝶AI影像草地婚礼影像展示"
-          placeholder="blur"
-          quality={85}
-          sizes="(max-width: 600px) 100vw, 576px"
         />
       </section>
 
       <div className="demo-first-preload" aria-hidden="true">
-        <Image
+        <img
           src={demoSlides[0].src}
           alt=""
           width={demoSlides[0].width}
           height={demoSlides[0].height}
-          preload
-          quality={85}
-          sizes="(max-width: 600px) 100vw, 576px"
+          fetchPriority="high"
+          decoding="async"
         />
       </div>
 
@@ -259,14 +227,12 @@ export function LandingExperience() {
               setTouchStart(null)
             }}
           >
-            <Image
+            <img
               key={activeSlide.id}
               src={activeSlide.src}
               alt={`岚蝶AI影像样片 ${activeIndex + 1}`}
-              fill
-              preload
-              quality={85}
-              sizes="(max-width: 600px) 100vw, 576px"
+              fetchPriority="high"
+              decoding="async"
               onLoad={() => setIsSlideLoading(false)}
               onError={() => setIsSlideLoading(false)}
             />
@@ -276,15 +242,14 @@ export function LandingExperience() {
 
           <div className="demo-adjacent-preload" aria-hidden="true">
             {adjacentSlides.map((slide) => (
-              <Image
+              <img
                 key={slide.id}
                 src={slide.src}
                 alt=""
                 width={slide.width}
                 height={slide.height}
                 loading="eager"
-                quality={85}
-                sizes="(max-width: 600px) 100vw, 576px"
+                decoding="async"
               />
             ))}
           </div>

@@ -105,6 +105,10 @@ button {
 }
 
 .demo-stage img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   animation: slide-in 360ms cubic-bezier(.2, .8, .2, 1) both;
 }

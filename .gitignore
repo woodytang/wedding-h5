@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# 图片母版：本地生成 public/img 用，不入库
+/.masters/

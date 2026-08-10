@@ -215,27 +215,13 @@ export function LandingExperience() {
         <span className="h-px flex-1 bg-[#b8b1a6]/30" aria-hidden="true" />
       </div>
 
-      <section className="relative w-full max-w-[576px] px-6 leading-none" aria-label="岚蝶AI影像草地婚礼影像展示">
-        <Pic
-          className="block h-auto w-full"
-          name="land-image-8"
-          alt="岚蝶AI影像草地婚礼影像展示"
-        />
-      </section>
-
-      <div className="flex w-full max-w-[576px] items-center gap-4 bg-black px-6 py-7 text-[#b8b1a6]" aria-label="岚蝶AI影像">
-        <span className="h-px flex-1 bg-[#b8b1a6]/30" aria-hidden="true" />
-        <p className="m-0 shrink-0 text-[12px] font-light tracking-[0.2em]">岚蝶AI影像</p>
-        <span className="h-px flex-1 bg-[#b8b1a6]/30" aria-hidden="true" />
-      </div>
-
       {/*
-        放在全部样片之后：客户已看完成片、认可质量，此时逐条读下来
-        更容易对号入座。不用固定行高，条目文案长短不一会被裁掉。
+        排在最后一张样片之前：前面已看过足够多成片建立信任，读完条目
+        再以整图收尾，页面不至于结束在一列文字上。
+        不用固定行高，条目文案长短不一会被裁掉。
       */}
       <section className="w-full max-w-[576px] bg-black px-6 pb-4 pt-2 text-[#f8f4eb]" aria-label="适合选择岚蝶AI影像的情况">
-        <p className="m-0 mb-1 text-center text-[18px] font-medium tracking-[0.08em]">这些情况，特别适合</p>
-        <p className="m-0 mb-8 text-center text-[11px] tracking-[0.08em] opacity-60">看看有没有说中您</p>
+        <p className="m-0 mb-8 text-center text-[18px] font-medium tracking-[0.08em]">这些情况，特别适合</p>
         <ul className="m-0 list-none p-0">
           {suitableScenarios.map((scenario, index) => (
             <li
@@ -254,6 +240,20 @@ export function LandingExperience() {
             </li>
           ))}
         </ul>
+      </section>
+
+      <div className="flex w-full max-w-[576px] items-center gap-4 bg-black px-6 py-7 text-[#b8b1a6]" aria-label="岚蝶AI影像">
+        <span className="h-px flex-1 bg-[#b8b1a6]/30" aria-hidden="true" />
+        <p className="m-0 shrink-0 text-[12px] font-light tracking-[0.2em]">岚蝶AI影像</p>
+        <span className="h-px flex-1 bg-[#b8b1a6]/30" aria-hidden="true" />
+      </div>
+
+      <section className="relative w-full max-w-[576px] px-6 leading-none" aria-label="岚蝶AI影像草地婚礼影像展示">
+        <Pic
+          className="block h-auto w-full"
+          name="land-image-8"
+          alt="岚蝶AI影像草地婚礼影像展示"
+        />
       </section>
 
       {/*

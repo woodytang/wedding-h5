@@ -4,6 +4,19 @@ import { useCallback, useEffect, useState } from 'react'
 import { Pic } from '@/components/Pic'
 import { demoSlides } from '@/data/demo-slides'
 
+// 排序原则：把传统影楼与到店型 AI 服务做不到的排在前面。
+// 这几类客户不是「选择」不去影楼，是去不了——属于增量而非争夺。
+const suitableScenarios = [
+  { title: '两人在异地，或一方在国外', detail: '不必等团聚，也能有一套合影' },
+  { title: '婚礼已经办完，当年没顾上拍', detail: '什么时候想补都可以，不受时间限制' },
+  { title: '孕期、病中，或实在请不出假', detail: '不用到场，在家就能完成' },
+  { title: '传统婚纱照没拍好，想快速补拍', detail: '1–3 日交付，不必重新约档期和场地' },
+  { title: '计划实景拍摄，想先试出方向', detail: '先用 AI 预演造型与场景，正式开拍不再试错' },
+  { title: '想给父母、长辈补一套', detail: '那一代人很多没拍过，一张生活照就够' },
+  { title: '不习惯面对镜头', detail: '没有影棚，没有围观，不用摆姿势' },
+  { title: '想多试几种风格', detail: '换装换景不产生额外拍摄成本' },
+]
+
 export function LandingExperience() {
   const [isDemoOpen, setIsDemoOpen] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0)
@@ -199,6 +212,39 @@ export function LandingExperience() {
           name="land-image-8"
           alt="岚蝶AI影像草地婚礼影像展示"
         />
+      </section>
+
+      <div className="flex w-full max-w-[576px] items-center gap-4 bg-black px-6 py-7 text-[#b8b1a6]" aria-label="岚蝶AI影像">
+        <span className="h-px flex-1 bg-[#b8b1a6]/30" aria-hidden="true" />
+        <p className="m-0 shrink-0 text-[12px] font-light tracking-[0.2em]">岚蝶AI影像</p>
+        <span className="h-px flex-1 bg-[#b8b1a6]/30" aria-hidden="true" />
+      </div>
+
+      {/*
+        放在全部样片之后：客户已看完成片、认可质量，此时逐条读下来
+        更容易对号入座。不用固定行高，条目文案长短不一会被裁掉。
+      */}
+      <section className="w-full max-w-[576px] bg-black px-6 pb-4 pt-2 text-[#f8f4eb]" aria-label="适合选择岚蝶AI影像的情况">
+        <p className="m-0 mb-1 text-center text-[18px] font-medium tracking-[0.08em]">这些情况，特别适合</p>
+        <p className="m-0 mb-8 text-center text-[11px] tracking-[0.08em] opacity-60">看看有没有说中您</p>
+        <ul className="m-0 list-none p-0">
+          {suitableScenarios.map((scenario, index) => (
+            <li
+              key={scenario.title}
+              className="flex items-start gap-4 border-b border-[#b8b1a6]/25 py-5 last:border-b-0"
+            >
+              <span className="mt-1 shrink-0 text-[10px] tracking-[0.18em] text-[#b8b1a6]">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <div>
+                <p className="m-0 text-[14px] font-light leading-6 tracking-[0.08em]">{scenario.title}</p>
+                <p className="m-0 mt-1 text-[12px] font-light leading-5 tracking-[0.08em] text-[#b8b1a6]">
+                  {scenario.detail}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
       </section>
 
       {/*

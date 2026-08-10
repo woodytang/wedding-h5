@@ -1,5 +1,8 @@
-// 由 scripts/optimize-images.mjs 生成，请勿手改。
-// 尺寸逐张记录：样片原始比例并不统一，写死单一尺寸会让预加载图变形。
+// 手工维护。样片最初由脚本批量生成，母片已不在仓库中，
+// 之后换图需同步更新此处的尺寸。
+//
+// 尺寸逐张记录：各样片比例并不统一（0.5625 / 0.6667 等），
+// 写死单一尺寸会让预加载图变形。
 
 export type DemoSlide = {
   id: string
@@ -18,7 +21,7 @@ export const demoSlides: readonly DemoSlide[] = [
   { id: 'LAB01-S07', src: '/2026-08-07-webp/LAB01-S07.webp', width: 1728, height: 3070 },
   { id: 'LAB01-S08', src: '/2026-08-07-webp/LAB01-S08.webp', width: 1728, height: 3070 },
   { id: 'LAB01-S09', src: '/2026-08-07-webp/LAB01-S09.webp', width: 1728, height: 3070 },
-  { id: 'LAB01-S10', src: '/2026-08-07-webp/LAB01-S10.webp', width: 1728, height: 2592 },
+  { id: 'LAB01-S10', src: '/2026-08-07-webp/LAB01-S10.webp', width: 1125, height: 2000 },
   { id: 'LAB01-S11', src: '/2026-08-07-webp/LAB01-S11.webp', width: 1728, height: 3070 },
   { id: 'LAB01-S12', src: '/2026-08-07-webp/LAB01-S12.webp', width: 1728, height: 3070 },
   { id: 'LAB01-S13', src: '/2026-08-07-webp/LAB01-S13.webp', width: 1728, height: 3070 },

@@ -27,6 +27,15 @@ const suitableScenarios = [
   { title: '想给父母、长辈补一套', detail: '那一代人很多没拍过，一张生活照就够' },
 ]
 
+function shuffleSlides(slides: readonly typeof demoSlides[number][]) {
+  const shuffled = [...slides]
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1))
+    ;[shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]]
+  }
+  return shuffled
+}
+
 export function LandingExperience() {
   const [isDemoOpen, setIsDemoOpen] = useState(false)
   const [albumMode, setAlbumMode] = useState<'random' | 'theme'>('random')
@@ -35,14 +44,7 @@ export function LandingExperience() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isSlideLoading, setIsSlideLoading] = useState(false)
   const [touchStart, setTouchStart] = useState<number | null>(null)
-  const randomSlides = useMemo(() => {
-    const shuffled = [...demoSlides]
-    for (let index = shuffled.length - 1; index > 0; index -= 1) {
-      const swapIndex = Math.floor(Math.random() * (index + 1))
-      ;[shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]]
-    }
-    return shuffled
-  }, [isDemoOpen])
+  const [randomSlides, setRandomSlides] = useState<readonly typeof demoSlides[number][]>(demoSlides)
   const activeTheme = albumThemes.find((theme) => theme.id === activeThemeId) || albumThemes[0]
   const activeSlides = albumMode === 'random' ? randomSlides : activeTheme.slides
   const activeSlide = activeSlides[activeIndex]
@@ -52,6 +54,7 @@ export function LandingExperience() {
   ].filter(Boolean)
 
   const openDemo = useCallback(() => {
+    setRandomSlides(shuffleSlides(demoSlides))
     setAlbumMode('random')
     setActiveThemeId('uncategorized')
     setActiveIndex(0)

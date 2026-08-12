@@ -1,8 +1,9 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Pic } from '@/components/Pic'
 import { demoSlides } from '@/data/demo-slides'
+import { albumThemes } from '@/data/album-themes'
 
 // 这是「对号入座」板块，按自我识别的概率从高到低排，不按「只有我们能做」排——
 // 后者是公司视角，访客只关心这条说的是不是自己，每错过一条就掉一批人。
@@ -28,29 +29,69 @@ const suitableScenarios = [
 
 export function LandingExperience() {
   const [isDemoOpen, setIsDemoOpen] = useState(false)
+  const [albumMode, setAlbumMode] = useState<'random' | 'theme'>('random')
+  const [activeThemeId, setActiveThemeId] = useState('uncategorized')
+  const [isThemeDrawerOpen, setIsThemeDrawerOpen] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0)
   const [isSlideLoading, setIsSlideLoading] = useState(false)
   const [touchStart, setTouchStart] = useState<number | null>(null)
-  const activeSlide = demoSlides[activeIndex]
+  const randomSlides = useMemo(() => {
+    const shuffled = [...demoSlides]
+    for (let index = shuffled.length - 1; index > 0; index -= 1) {
+      const swapIndex = Math.floor(Math.random() * (index + 1))
+      ;[shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]]
+    }
+    return shuffled
+  }, [isDemoOpen])
+  const activeTheme = albumThemes.find((theme) => theme.id === activeThemeId) || albumThemes[0]
+  const activeSlides = albumMode === 'random' ? randomSlides : activeTheme.slides
+  const activeSlide = activeSlides[activeIndex]
   const adjacentSlides = [
-    demoSlides[(activeIndex - 1 + demoSlides.length) % demoSlides.length],
-    demoSlides[(activeIndex + 1) % demoSlides.length],
-  ]
+    activeSlides[(activeIndex - 1 + activeSlides.length) % activeSlides.length],
+    activeSlides[(activeIndex + 1) % activeSlides.length],
+  ].filter(Boolean)
 
   const openDemo = useCallback(() => {
+    setAlbumMode('random')
+    setActiveThemeId('uncategorized')
     setActiveIndex(0)
     setIsSlideLoading(true)
     setIsDemoOpen(true)
   }, [])
   const closeDemo = useCallback(() => setIsDemoOpen(false), [])
   const showPrevious = useCallback(() => {
+    if (!activeSlides.length) return
     setIsSlideLoading(true)
-    setActiveIndex((index) => (index - 1 + demoSlides.length) % demoSlides.length)
-  }, [])
+    setActiveIndex((index) => (index - 1 + activeSlides.length) % activeSlides.length)
+  }, [activeSlides.length])
   const showNext = useCallback(() => {
+    if (!activeSlides.length) return
     setIsSlideLoading(true)
-    setActiveIndex((index) => (index + 1) % demoSlides.length)
+    if (albumMode === 'random') {
+      setActiveIndex((index) => (index + 1) % activeSlides.length)
+      return
+    }
+    if (activeIndex < activeSlides.length - 1) {
+      setActiveIndex((index) => index + 1)
+      return
+    }
+    const currentThemeIndex = albumThemes.findIndex((theme) => theme.id === activeThemeId)
+    const nextTheme = albumThemes.slice(currentThemeIndex + 1).concat(albumThemes.slice(0, currentThemeIndex)).find((theme) => theme.slides.length)
+    if (nextTheme) {
+      setActiveThemeId(nextTheme.id)
+      setActiveIndex(0)
+    }
+  }, [activeIndex, activeSlides.length, albumMode, activeThemeId])
+
+  const selectTheme = useCallback((themeId: string) => {
+    setAlbumMode('theme')
+    setActiveThemeId(themeId)
+    setActiveIndex(0)
+    setIsSlideLoading(Boolean(albumThemes.find((theme) => theme.id === themeId)?.slides.length))
+    setIsThemeDrawerOpen(false)
   }, [])
+
+  const drawerThemes = useMemo(() => albumThemes, [])
 
   useEffect(() => {
     if (!isDemoOpen) return
@@ -191,6 +232,7 @@ export function LandingExperience() {
         <Pic
           className="block h-auto w-full"
           name="land-image-6"
+          revision="20260811"
           alt="岚蝶AI影像草地婚礼影像展示"
         />
       </section>
@@ -300,7 +342,7 @@ export function LandingExperience() {
               setTouchStart(null)
             }}
           >
-            <img
+            {activeSlide ? <img
               key={activeSlide.id}
               src={activeSlide.src}
               alt={`岚蝶AI影像样片 ${activeIndex + 1}`}
@@ -308,9 +350,9 @@ export function LandingExperience() {
               decoding="async"
               onLoad={() => setIsSlideLoading(false)}
               onError={() => setIsSlideLoading(false)}
-            />
+            /> : <div className="album-empty-theme"><strong>{activeTheme.name}</strong><span>主题图片待添加</span></div>}
             {isSlideLoading && <span className="demo-loading" aria-label="样片加载中" />}
-            <p className="demo-counter">{String(activeIndex + 1).padStart(2, '0')} / {String(demoSlides.length).padStart(2, '0')}</p>
+            {activeSlide && <p className="demo-counter">{String(activeIndex + 1).padStart(2, '0')} / {String(activeSlides.length).padStart(2, '0')}</p>}
           </div>
 
           <div className="demo-adjacent-preload" aria-hidden="true">
@@ -326,6 +368,21 @@ export function LandingExperience() {
               />
             ))}
           </div>
+
+          <div className="album-controls" aria-label="相册模式和主题">
+            <button type="button" className={albumMode === 'random' ? 'active' : ''} onClick={() => { setAlbumMode('random'); setActiveIndex(0); setIsSlideLoading(true) }}>全局随机</button>
+            <button type="button" className={albumMode === 'theme' ? 'active' : ''} onClick={() => setIsThemeDrawerOpen(true)}>主题模式</button>
+          </div>
+
+          {isThemeDrawerOpen && <aside className="theme-drawer" aria-label="主题列表">
+            <div className="theme-drawer-head"><strong>选择主题</strong><button type="button" onClick={() => setIsThemeDrawerOpen(false)} aria-label="关闭主题列表">×</button></div>
+            <div className="theme-drawer-list">
+              {drawerThemes.map((theme) => <button type="button" className={`theme-drawer-item ${theme.id === activeThemeId ? 'selected' : ''}`} key={theme.id} onClick={() => selectTheme(theme.id)}>
+                <span className="theme-thumb">{theme.cover ? <img src={theme.cover.src} alt="" /> : <span>待添加</span>}</span>
+                <span><strong>{theme.name}</strong><small>{theme.description}</small></span>
+              </button>)}
+            </div>
+          </aside>}
 
           <button className="demo-nav demo-nav-next" type="button" aria-label="下一张样片" onClick={showNext}>›</button>
         </section>

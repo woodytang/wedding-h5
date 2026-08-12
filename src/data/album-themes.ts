@@ -26,6 +26,10 @@ const jiuzhaigouReedMarshSlides: readonly DemoSlide[] = [
   { id: 'jiuzhaigou-reed-marsh-05', src: '/img/album/jiuzhaigou-reed-marsh/jiuzhaigou-reed-marsh-05-1152.webp', width: 1152, height: 1536 },
 ]
 
+const southItalyCapriSlides: readonly DemoSlide[] = [
+  { id: 'south-italy-capri-01', src: '/img/album/south-italy-capri/south-italy-capri-01-1152.webp', width: 1152, height: 1735 },
+]
+
 // Existing images stay unclassified until the user assigns them to a theme.
 // New themes can receive images later without changing the album player.
 export const albumThemes: readonly AlbumTheme[] = [
@@ -49,6 +53,13 @@ export const albumThemes: readonly AlbumTheme[] = [
     description: '碧蓝溪流与荻野婚礼',
     cover: jiuzhaigouReedMarshSlides[0],
     slides: jiuzhaigouReedMarshSlides,
+  },
+  {
+    id: 'south-italy-capri',
+    name: '南意-Capri岛',
+    description: '卡普里海岸与蔚蓝夏日婚礼',
+    cover: southItalyCapriSlides[0],
+    slides: southItalyCapriSlides,
   },
 ]
 

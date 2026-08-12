@@ -28,6 +28,8 @@ const jiuzhaigouReedMarshSlides: readonly DemoSlide[] = [
 
 const southItalyCapriSlides: readonly DemoSlide[] = [
   { id: 'south-italy-capri-01', src: '/img/album/south-italy-capri/south-italy-capri-01-1152.webp', width: 1152, height: 1735 },
+  { id: 'south-italy-capri-02', src: '/img/album/south-italy-capri/south-italy-capri-02-1152.webp', width: 1152, height: 1735 },
+  { id: 'south-italy-capri-03', src: '/img/album/south-italy-capri/south-italy-capri-03-1152.webp', width: 1152, height: 1735 },
 ]
 
 // Existing images stay unclassified until the user assigns them to a theme.

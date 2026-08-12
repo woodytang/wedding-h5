@@ -4,6 +4,7 @@ type PicProps = {
   name: ImageName
   alt: string
   className?: string
+  revision?: string
   /** 默认按内容列（最宽 576px）取值，与 globals.css 的布局一致。 */
   sizes?: string
   /** 首屏图用；跳过懒加载并提高请求优先级。 */
@@ -21,13 +22,15 @@ export function Pic({
   name,
   alt,
   className,
+  revision,
   sizes = '(max-width: 600px) 100vw, 576px',
   priority = false,
 }: PicProps) {
   const { widths, width, height, blur } = images[name]
 
+  const cacheSuffix = revision ? `?v=${revision}` : ''
   const srcSet = (ext: string) =>
-    widths.map((w) => `/img/${name}-${w}.${ext} ${w}w`).join(', ')
+    widths.map((w) => `/img/${name}-${w}.${ext}${cacheSuffix} ${w}w`).join(', ')
 
   return (
     // display: contents —— 让 picture 不参与布局，img 的表现与直接写 img 一致。
@@ -35,7 +38,7 @@ export function Pic({
       <source type="image/avif" srcSet={srcSet('avif')} sizes={sizes} />
       <source type="image/webp" srcSet={srcSet('webp')} sizes={sizes} />
       <img
-        src={`/img/${name}-${widths[0]}.webp`}
+        src={`/img/${name}-${widths[0]}.webp${cacheSuffix}`}
         alt={alt}
         width={width}
         height={height}

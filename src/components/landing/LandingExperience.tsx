@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Pic } from '@/components/Pic'
 import { demoSlides } from '@/data/demo-slides'
-import { albumThemes } from '@/data/album-themes'
+import { albumThemes, allAlbumSlides } from '@/data/album-themes'
 
 // 这是「对号入座」板块，按自我识别的概率从高到低排，不按「只有我们能做」排——
 // 后者是公司视角，访客只关心这条说的是不是自己，每错过一条就掉一批人。
@@ -44,7 +44,7 @@ export function LandingExperience() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isSlideLoading, setIsSlideLoading] = useState(false)
   const [touchStart, setTouchStart] = useState<number | null>(null)
-  const [randomSlides, setRandomSlides] = useState<readonly typeof demoSlides[number][]>(demoSlides)
+  const [randomSlides, setRandomSlides] = useState<readonly typeof demoSlides[number][]>(allAlbumSlides)
   const activeTheme = albumThemes.find((theme) => theme.id === activeThemeId) || albumThemes[0]
   const activeSlides = albumMode === 'random' ? randomSlides : activeTheme.slides
   const activeSlide = activeSlides[activeIndex]
@@ -54,7 +54,7 @@ export function LandingExperience() {
   ].filter(Boolean)
 
   const openDemo = useCallback(() => {
-    setRandomSlides(shuffleSlides(demoSlides))
+    setRandomSlides(shuffleSlides(allAlbumSlides))
     setAlbumMode('random')
     setActiveThemeId('uncategorized')
     setActiveIndex(0)
@@ -125,7 +125,7 @@ export function LandingExperience() {
         >
           <span>看成片</span>
           <strong>DEMO</strong>
-          <i>01-36</i>
+          <i>01-{String(allAlbumSlides.length).padStart(2, '0')}</i>
           <b aria-hidden="true">›</b>
         </button>
       </article>

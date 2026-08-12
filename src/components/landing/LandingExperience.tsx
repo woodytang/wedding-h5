@@ -355,7 +355,13 @@ export function LandingExperience() {
               onError={() => setIsSlideLoading(false)}
             /> : <div className="album-empty-theme"><strong>{activeTheme.name}</strong><span>主题图片待添加</span></div>}
             {isSlideLoading && <span className="demo-loading" aria-label="样片加载中" />}
-            {activeSlide && <p className="demo-counter">{String(activeIndex + 1).padStart(2, '0')} / {String(activeSlides.length).padStart(2, '0')}</p>}
+            {activeSlide && (
+              <p className="demo-counter">
+                <span>{String(activeIndex + 1).padStart(2, '0')} / {String(activeSlides.length).padStart(2, '0')}</span>
+                {/* 「未归类」是兜底分组，不是真主题名，不值得占位；按 id 判断以免改名后失效 */}
+                {activeTheme.id !== 'uncategorized' && <em>{activeTheme.name}</em>}
+              </p>
+            )}
           </div>
 
           <div className="demo-adjacent-preload" aria-hidden="true">

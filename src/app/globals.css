@@ -137,11 +137,30 @@ button {
   position: absolute;
   top: max(18px, env(safe-area-inset-top));
   left: 18px;
+  /* 右边界让开关闭按钮（42px 宽 + 间距），长主题名截断而不是压到按钮下面 */
+  right: max(66px, calc((100vw - 576px) / 2 + 66px));
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
   margin: 0;
   color: #fffdf5;
   font-size: 12px;
   letter-spacing: .1em;
   text-shadow: 0 1px 8px rgb(0 0 0 / 45%);
+}
+
+.demo-counter span {
+  flex: 0 0 auto;
+}
+
+.demo-counter em {
+  min-width: 0;
+  overflow: hidden;
+  color: rgb(255 253 245 / 82%);
+  font-style: normal;
+  letter-spacing: .04em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .demo-close,
